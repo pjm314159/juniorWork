@@ -1,0 +1,1 @@
+__all__ = [f"demo{i+1}" for i in range(5)]

@@ -1,0 +1,6 @@
+{%  extends  "layout.html"  %}
+{%  block  body  %}
+{% for i in p%}
+    <a href="{{urls[i]}}">{{text[i]}}<br/></a>
+{% endfor %}
+{% endblock %}
