@@ -1,19 +1,20 @@
+import jmcomic
 from flask import Flask, request, redirect, url_for, render_template, session, send_from_directory
 from os import listdir
 from os import urandom
 from os.path import join, getmtime
 from sqlite3 import connect
 from sys import path
-from logging import getLogger, ERROR
 from provide_data import *
+from provide_data import jm
 path.append("provide_data")
 app = Flask(__name__)
 app.config.from_pyfile("static/settings.py")
 app.config['SECRET_KEY'] = urandom(24)
 coon = connect("static/content.db", check_same_thread=False)
 cur = coon.cursor()
-pl = ["syjszpc", 'xxmh88', "realPeople", "goddess", "scores"]
-ql = ["demo1", "demo2", "demo3", "demo4", "demo5"]
+pl = ["syjszpc", 'xxmh88', "realPeople", "goddess", "scores","jm"]
+ql = ["demo1", "demo2", "demo3", "demo4", "demo5","jm"]
 co = {i: {x[1]: x[0] for x in cur.execute(f"SELECT * from {i}")} for i in pl}
 
 
@@ -151,7 +152,6 @@ def data_handle():
     p = "worse"
     if user == "admin" and password == "314159":
         try:
-
             if method == '1':
                 a = demo1.A(url)
                 a.dl()
@@ -171,13 +171,21 @@ def data_handle():
                 a = demo5.A(url)
                 a.main()
                 co["realPeople"][a.sp.catalog] = url
+            elif method == '6':
+                a = jm.A(url)
+                a.jmOption = "static\jmOption.yml"
+                a.create()
+                a.download()
             else:
                 return "It isn't in"
-            p = 'success'
+            try:
+                p = 'success: ' + ql[int(method)-1]
+            except:
+                p = 'failure'
         except Exception as e:
             p = str(e)
     return p
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='10.44.246.162', port=5000)

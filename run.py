@@ -8,8 +8,7 @@ from webbrowser import open as op
 from socket import gethostname,getaddrinfo,gethostbyname
 from sys import exit as ex
 # HOST = gethostbyname(getfqdn(gethostname()))
-HOST = getaddrinfo(gethostname(),None)[-1][-1][0]
-
+HOST = getaddrinfo(gethostname(),None)[5][-1][0]
 class MyTaskBarIcon(TaskBarIcon):
     ICON = "static/favicon.ico"
     ID_EXIT = ID_ANY

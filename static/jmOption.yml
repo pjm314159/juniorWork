@@ -1,0 +1,4 @@
+log: false
+
+dir_rule:
+  base_dir: static/image/jm
